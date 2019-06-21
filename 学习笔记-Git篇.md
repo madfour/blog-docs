@@ -255,7 +255,7 @@ $ git clone git@github.com:zjcLuKeer/learngit.git
 
 Git支持多种协议，包括`https`，但通过`ssh`支持的原生`git`协议速度最快。
 
-### 9、分支管理
+### 9、分支管理(学习重点)
 
 #### 1、创建与合并分支
 
@@ -305,7 +305,7 @@ Git支持多种协议，包括`https`，但通过`ssh`支持的原生`git`协议
 >
 > 合并后再次查看文件，可以发现和`dev`分支的最新提交是完全一样的。
 >
-> >注意到上面的`Fast-forward`信息，Git告诉我们，这次合并是“快进模式”，也就是直接把`master`指向`dev`的当前提交，所以合并速度非常快。
+> >注意到上面的`Fast-forward`信息，Git告诉我们，这次合并是“**快进模式**”，也就是直接把`master`指向`dev`的当前提交，所以合并速度非常快。
 > >
 > >当然，也不是每次合并都能`Fast-forward`，还会有其他方式和合并
 >
@@ -315,7 +315,7 @@ Git支持多种协议，包括`https`，但通过`ssh`支持的原生`git`协议
 > $ git branch -d dev
 > ````
 >
-> 删除后，查看`branch`，就只剩下`master`分支了
+> 删除后，查看**`branch`**，就只剩下`master`分支了
 >
 > ````ruby
 > $ git branch
@@ -338,17 +338,102 @@ Git鼓励大量使用分支：
 
 删除分支：`git branch -d <name>`
 
+#### 3、解决冲突
 
+> Git用`<<<<<<<`，`=======`，`>>>>>>>`标记出不同分支的内容
 
+当git无法自动合并分支是，就必须首先解决冲突，解决冲突后，在提交，合并完成。
 
+解决冲突就是把Git合并失败的文件**手动**编辑为我们希望的内容，在提交。
 
+用`git log --graph`命令可以看到分支合并图。
 
+#### 4、分支管理策略
 
+通常，合并分支是，如果可能，Git会用`Fast forward`模式(快进模式)，但这种模式下，删除分支后，会丢掉分支信息。
 
+如果要强制禁用该模式，Git就会在merge时生成一个新的commit，这样，从分支历史上就可以看出分支信息。
 
+下面用`--no-ff`方式的`git merge`
 
+````ruby
+$ git checkout -b dev		#创建dev分支
+	
+$ git add <file>			#修改<file>文件，并提交一个新的commit：
+$ git commit -m "file txt"
 
+$ git checkout master		#切换回master
 
+#准备合并dev分支，请注意--no-ff参数，表示禁用Fast forward
+$ git merge --no-ff -m "merge with no-ff" dev	
+
+````
+
+合并后，可以用`Git log`查看分支历史
+
+````ruby
+$ git log --graph --pretty=oneline --abbrev-commit
+````
+
+##### 分支策略
+
+在实际开发中，应该按照以下几个基本原则进行分支管理：
+
+首先，`master`分支应该非常稳定的，也就是仅用来发布新版本，平时不能在上面干活；
+
+干活都在`dev`分支上，也就是说，`dev`分支是不稳定的，到某个时候，比如1.0版本发布时，再把`dev`分支合并到`master`上，在`master`分支发布1.0版本；
+
+你和你的小伙伴们每个人都在`dev`分支上干活，每个人都有自己的分支，时不时地往`dev`分支上合并就可以了。
+
+**合并分支时，加上`--no-ff`参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而`fast forward`合并就看不出来曾经做过合并。**
+
+#### 5、BUG分支
+
+在Git中，分支是很强大的，所以，每个bug都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。
+
+> 当接到一个修复一个代号101的bug的任务是，想创建一个分支`issue-101`来修复它，但，当前正在`dev`上进行的工作还没有提交。但bug必须尽快修复。怎么办？
+>
+> 幸好，Git提供一个`stash`功能，可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作：
+>
+> ````ruby
+> $ git stash
+> Saved working directory and index state WIP on dev: f52c633 add merge
+> ````
+>
+> 现在，用`git status`查看工作区，就是干净的(除非存在没有被Git管理的文件)，因此可以放心的创建分支来修复bug。
+>
+> 先要确定在哪个分支上修复，假定`master`分支上修复，开始创建临时分支
+>
+> ````ruby
+> $ git checkout master
+> $ git checkout -b issue-101		#创建临时分支
+> 
+> $ git add readme.txt 
+> $ git commit -m "fix bug 101"	#修复，并提交commit：
+> 
+> $ git checkout master			#修复完成后，切换到master分支，
+> $ git merge --no-ff -m "merged bug fix 101" issue-101	#并完成合并，最后删除issue-101分支
+> 
+> $ git checkout dev				#接着回到dev分支干活了
+> $ git status
+> On branch dev
+> nothing to commit, working tree clean
+> ````
+>
+> 工作区是干净的，刚才的工作现场存到哪去了？用`git stash list`命令看看：
+>
+> ````ruby
+> $ git stash list
+> stash@{0}: WIP on dev: f52c633 add merge
+> ````
+>
+> 工作现场还在，Git把stash内容存在某个地方了，
+>
+> 但是需要恢复一下，有两个办法：
+>
+> 一是用`git stash apply`恢复，但是恢复后，stash内容并不删除，你需要用`git stash drop`来删除；
+>
+> 另一种方式是用`git stash pop`，恢复的同时把stash内容也删了：
 
 
 
