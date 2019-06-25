@@ -434,6 +434,503 @@ $ git log --graph --pretty=oneline --abbrev-commit
 > 一是用`git stash apply`恢复，但是恢复后，stash内容并不删除，你需要用`git stash drop`来删除；
 >
 > 另一种方式是用`git stash pop`，恢复的同时把stash内容也删了：
+>
+> ````ruby
+> $ git stash pop
+> On branch dev
+> Changes to be committed:
+>   (use "git reset HEAD <file>..." to unstage)
+> 
+> 	new file:   hello.py
+> 
+> Changes not staged for commit:
+>   (use "git add <file>..." to update what will be committed)
+>   (use "git checkout -- <file>..." to discard changes in working directory)
+> 
+> 	modified:   readme.txt
+> 
+> Dropped refs/stash@{0} (5d677e2ee266f39ea296182fb2354265b91b3b2a)
+> ````
+>
+> 再用`git stash list`查看，就看不到任何stash内容了：
+>
+> ````ruby
+> $ git stash list
+> ````
+>
+> 你可以多次stash，恢复的时候，先用`git stash list`查看，然后恢复指定的stash，用命令：
+>
+> ````ruby
+> $ git stash apply stash@{0}
+> ````
+
+**小结**
+
+修复BUG时，我们会通过创建新的BUG分支进行修复，然后合并，最后删除；
+
+当手头有工作没有完成，先把工作现场`git stash`一下，然后去修复BUG，修复后，在通过`git stash pop`，回到工作现场。
+
+#### 6、feature分支
+
+软件开发过程中，会有不断的功能加进来，
+
+每加入一个功能时，为了不把主分支搞乱，最好创建一个feature分支，在上面开发，完成后，在合并，最后删除该分支。
+
+> 当你有个新任务：开发代号为101的新功能时：
+>
+> ````ruby
+> $ git checkout -b feature-vulcan
+> Switched to a new branch 'feature-vulcan'
+> ````
+>
+> 开发完毕后：
+>
+> ````ruby
+> $ git add vulcan.text
+> 
+> $ git status
+> 
+> $ git commit -m "add feature-vulcan"
+> 
+> ````
+>
+> 切换回`dev`，合并：
+>
+> ````ruby
+> $ git checkout dev
+> ````
+>
+> 一切顺利的话，feature分支和bug分支是类似的，合并，然后删除。
+>
+> 但是！
+>
+> 若该功能要取消！
+>
+> 虽然白干，但还是要把包含机密的分支文件销毁的
+>
+> ````ruby
+> $ git branch -d feature-vulcan
+> error: The branch 'feature-vulcan' is not fully merged.
+> If you are sure you want to delete it, run 'git branch -D feature-vulcan'.
+> ````
+>
+> **销毁失败**，Git友情提醒，`feature-vulcan`分支还没有被合并，如果删除，将会丢失修改，如果要强行删除，需要使用大写`-D`参数。即：`git branch -D <name>`
+>
+> ````ruby
+> $ git branch -D feature-vulcan
+> Deleted branch feature-vulcan (was 287773e).
+> ````
+>
+> 删除成功。
+
+####**7、多人协作**
+
+当你从远程仓库克隆时，实际上Git自动把本地的`master`分支和远程的`master`分支对应起来，并且，远程仓库的默认名称是`origin`。
+
+要查看远程库的信息，用**`git remote`**
+
+````ruby
+$ git remote
+origin
+````
+
+或者，使用`git remote -v`显示更详细的信息：
+
+````ruby
+$ git remote -v
+origin  git@github.com:zjcLuKeer/Notes.git (fetch)
+origin  git@github.com:zjcLuKeer/Notes.git (push)
+````
+
+上面显示了可以抓取和推送的`origin`的地址。**如果没有推送权限，就看不到push的地址**。
+
+##### 1、推送分支
+
+推送分支，就是把该分支上的所有本地提交推送到远程库。推送是，要指定本地分支，这样，Git就会把该分支推动到远程库对应的远程分支上：
+
+````ruby
+$ git push origin master
+````
+
+若要推送其它分支，比如`dev`:
+
+````ruby
+$ git push origin dev
+````
+
+**但是**，并不是一定要把本地分支往远程推送，所以要分清那些分支要推送，哪些不需要。
+
++ `master`分支是主分支，因此要时刻与远程同步；
++ `dev`分支是开发分支，团队所有成员都需要在上面工作，所以也是需要与远程同步；
++ bug分支只用于在本地修复bug，除非要求上传，否则就没必要上传；
++ feature分支是否推到远程，取决于你是否和你的小伙伴合作在上面开发。
+
+##### 2、抓取分支
+
+多人协作是，大家都会往`master`和`dev`分支上推送各自的修改。
+
+> 现在，模拟一个小伙伴，可以在另一台(注意要把SSH Key添加到GitHub)或者同一台电脑的另一个目录下克隆：
+>
+> ````ruby
+> $ git clone git@github.com:zjcluker/learngit.git
+> Cloning into 'learngit'...
+> remote: Counting objects: 40, done.
+> remote: Compressing objects: 100% (21/21), done.
+> remote: Total 40 (delta 14), reused 40 (delta 14), pack-reused 0
+> Receiving objects: 100% (40/40), done.
+> Resolving deltas: 100% (14/14), done.
+> ````
+>
+> 当小伙伴从远程库Clone时，默认情况下，他只能看到本地的`master`分支。不信可以用`git branch`命令查看。
+>
+> 现在，他要在`dev`分支上开发，就必须创建远程`origin`的`dev`分支到本地,于是他用这个命令创建本地`dev`分支：
+>
+> ````ruby
+> $ git checkout -b dev origin/dev
+> ````
+>
+> 现在，他就可以在`dev`上继续修改，然后，时不时的把`dev`分支`push`到远程：
+>
+> ````ruby
+> $ git add env.txt
+> 
+> $ git commit -m "add env"
+> 
+> $ git push origin dev
+> Counting objects: 3, done.
+> Delta compression using up to 4 threads.
+> Compressing objects: 100% (2/2), done.
+> Writing objects: 100% (3/3), 308 bytes | 308.00 KiB/s, done.
+> Total 3 (delta 0), reused 0 (delta 0)
+> To github.com:michaelliao/learngit.git
+>    f52c633..7a5e5dd  dev -> dev
+> ````
+>
+> 他已经向`origin/dev`分支推送了他的提交，而碰巧你也对同样的文件作了修改，并试图推送：
+>
+> ````ruby
+> $ cat env.txt
+> env
+> 
+> $ git add env.txt
+> 
+> $ git commit -m "add new env"
+> 
+> $ git push origin dev
+> To github.com:michaelliao/learngit.git
+>  ! [rejected]        dev -> dev (non-fast-forward)
+> error: failed to push some refs to 'git@github.com:michaelliao/learngit.git'
+> hint: Updates were rejected because the tip of your current branch is behind
+> hint: its remote counterpart. Integrate the remote changes (e.g.
+> hint: 'git pull ...') before pushing again.
+> hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+> ````
+>
+> 推送失败，原因是他的最新提交和你试图推送的提交有冲突，解决方法。先用`git pull`把最新的提交从`origin/dev`抓下来，然后本地合并，解决冲突，在推送：
+>
+> ````ruby
+> $ git pull
+> There is no tracking information for the current branch.
+> Please specify which branch you want to merge with.
+> See git-pull(1) for details.
+> 
+>     git pull <remote> <branch>
+> 
+> If you wish to set tracking information for this branch you can do so with:
+> 
+>     git branch --set-upstream-to=origin/<branch> dev
+> ````
+>
+> `git pull`失败，原因是没有吧本地`dev`分支和远程`origin/dev`分支的链接，根据提示，设置`dev`和`origin.dev`的链接：
+>
+> ````ruby
+> $ git branch --set -upstream-to=origin/dev dev
+> Branch 'dev' set up to track remote branch 'dev' from 'origin'.
+> ````
+>
+> 再pull
+>
+> ````ruby
+> $ git pull
+> Auto-merging env.txt
+> CONFLICT (add/add): Merge conflict in env.txt
+> Automatic merge failed; fix conflicts and then commit the result.
+> ````
+>
+> 这回`git pull`成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的解决冲突一样。解决完在提交，在push
+
+因此，多人协作的工作模式通常是这样的：
+
+1. 首先，可以试图要用`git push origin <branch-name>`推送自己的修改；
+2. 如果推送失败，则因为远程分支比你的本地更新，需要先用`git pull`试图合并；
+3. 如果合并有冲突，则解决冲突，并在本地提价；
+4. 没有冲突或者解决掉冲突后，在用`git push origin <branch-name>`就能推送成功。
+
+如果`git pull`提示`no tracking information`，则说明本地分支和远程分支的链接关系没有创建，用命令`git branch --set-upstream-to <branch-name> origin/<branch-name>`。
+
+######**小结**
+
++ 查看远程库信息，使用`git remoter -v`;
++ 本地新建的分支如果不推送到远程，对其他人就是不可见的；
++ 从本地推送分支，使用`git push origin brancj-name`，如果推送失败，先用`git pull`抓取远程的新提交；
++ 在本地创建和远程分支对应的分支，使用`git checkout -b branch-name origin/branch-name`，本地和远程分支的名称最好一致；
++ 建立本地分支和远程分支的关联，使用`git branch --set-upstream branch-name origin/branch-name`；
++ 从远程抓取分支，使用`git pull`，如果用冲突，要先处理冲突。
+
+##### 3、Rebase
+
+在上面可以看到，多人在同一个分支上协作是，很容易出现冲突。即使没有冲突，后push的童鞋不得不先pull，在本地合并，然后才能push成功。
+
+总之看上去会很乱。
+
+所以想要Git的提交历史是一跳干净的直线，Git提供一种称之为rebease的操作，有人把它翻译成“变基”。
+
+> 在和远程分支同步后，我们对‘hello.py’这个文件做两次提交。使用`git log`查看结果：
+>
+> ````ruby
+> $ git log --graph --pretty=oneline --abbrev-commit
+> * 582d922 (HEAD -> master) add author
+> * 8875536 add comment
+> * d1be385 (origin/master) init hello
+> *   e5e69f1 Merge branch 'dev'
+> |\  
+> | *   57c53ab (origin/dev, dev) fix env conflict
+> | |\  
+> | | * 7a5e5dd add env
+> | * | 7bd91f1 add new env
+> ...
+> ````
+>
+> 注意到Git用`(HEAD -> master)`和`(origin/master)`标识出当前分支的`HEAD`和远程`origin`的位置分别是`582d922 add author`和`d1be385 init hello`，本地分支比远程分支快两个提交。
+>
+> 现在常识推送本地分支：
+>
+> ````ruby
+> $ git push origin master
+> To github.com:michaelliao/learngit.git
+>  ! [rejected]        master -> master (fetch first)
+> error: failed to push some refs to 'git@github.com:michaelliao/learngit.git'
+> hint: Updates were rejected because the remote contains work that you do
+> hint: not have locally. This is usually caused by another repository pushing
+> hint: to the same ref. You may want to first integrate the remote changes
+> hint: (e.g., 'git pull ...') before pushing again.
+> hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+> ````
+>
+> 失败了！这说明有人先于我们推送了远程分支。按照经验，先`pull`一下
+>
+> ````ruby
+> $ git pull
+> ````
+>
+> 再用`git status`看看状态
+>
+> ````ruby
+> $ git status
+> ````
+>
+> 加上刚才合并的提交，现在我们本地分支比远程分支超前3个提交。
+>
+> 在用`git log`看看：
+>
+> ```ruby
+> $ git log --graph --pretty=oneline --abbrev-commit
+> *   e0ea545 (HEAD -> master) Merge branch 'master' of github.com:michaelliao/learngit
+> |\  
+> | * f005ed4 (origin/master) set exit=1
+> * | 582d922 add author
+> * | 8875536 add comment
+> |/  
+> * d1be385 init hello
+> ...
+> ```
+>
+> 对于强迫症的人，现在事情有点不对头，提交历史分叉了。如果现在把本地分支push到远程，有没有问题？
+>
+> 有！不好看！
+>
+> 解决方法，rebase就派上了用场。`git rebase`
+>
+> ````ruby
+> $ git rebase
+> First, rewinding head to replay your work on top of it...
+> Applying: add comment
+> Using index info to reconstruct a base tree...
+> M	hello.py
+> Falling back to patching base and 3-way merge...
+> Auto-merging hello.py
+> Applying: add author
+> Using index info to reconstruct a base tree...
+> M	hello.py
+> Falling back to patching base and 3-way merge...
+> Auto-merging hello.py
+> ````
+>
+> 再用`git log`看看：
+>
+> ````ruby
+> $ git log --graph --pretty=oneline --abbrev-commit
+> * 7e61ed4 (HEAD -> master) add author
+> * 3611cfe add comment
+> * f005ed4 (origin/master) set exit=1
+> * d1be385 init hello
+> ...
+> ````
+>
+> >原本分叉的提交现在变成一条直线了！这种神奇的操作是怎么实现的？其实原理非常简单。
+> >
+> >我们注意观察，发现Git把我们本地的提交“挪动”了位置，放到了`f005ed4 (origin/master) set exit=1`之后，这样，整个提交历史就成了一条直线。rebase操作前后，最终的提交内容是一致的，但是，我们本地的commit修改内容已经变化了，它们的修改不再基于`d1be385 init hello`，而是基于`f005ed4 (origin/master) set exit=1`，但最后的提交`7e61ed4`内容是一致的。
+>
+> rebase操作的特点：把分叉的提交历史“整理”成一条直线，看上去更直观。缺点是本地的分叉提交已经被修改过了。
+>
+> 最后，通过push操作吧本地分支推送到远程：
+>
+> ````ruby
+> $ git push origin master
+> Counting objects: 6, done.
+> Delta compression using up to 4 threads.
+> Compressing objects: 100% (5/5), done.
+> Writing objects: 100% (6/6), 576 bytes | 576.00 KiB/s, done.
+> Total 6 (delta 2), reused 0 (delta 0)
+> remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+> To github.com:michaelliao/learngit.git
+>    f005ed4..7e61ed4  master -> master
+> ````
+>
+> 再用`git log`看看效果：
+>
+> ````ruby
+> $ git log --graph --pretty=oneline --abbrev-commit
+> * 7e61ed4 (HEAD -> master, origin/master) add author
+> * 3611cfe add comment
+> * f005ed4 set exit=1
+> * d1be385 init hello
+> ...
+> ````
+>
+> 远程分支的提交历史也是一条直线。
+
+**注意**
+
+前面至少要有一个人先提交同一个文件，造成此时要操作的本地git库与远程不符,再在本地git进行提交操作。
+并且,重要的是该篇并没有写出`git rebase`处理过程，
+
+使用`git rebase`之后，只是返回冲突出现的提交处的commit，之后要在这个commit中进行解决冲突；
+
+再使用git add操作添加好要解决冲突后的文件；
+
+之后还要再执行一次`git rebase --continu`，到此`git rebase`衍合过程才真正结束。
+
+### 10、标签管理
+
+##### 1、创建标签
+
+在Git中打标签很简单，首先，切换到需要打标签的分支上：
+
+````ruby
+$ git branch
+* dev
+  master
+$ git checkout master
+Switched to branch 'master'
+````
+
+然后，敲命令`git tag <name>`就可以打一个标签：
+
+````ruby
+$ git tag v1.0
+````
+
+可以使用命令`git tag`查看所有标签：
+
+````ruby
+$ git tag
+v1.0
+````
+
+默认标签是打在最新提交的commit上的。
+
+**若忘记打标签，方法是找到历史提交的 commit id，然后打上就可以了：**
+
+````ruby
+$ git log --pretty=oneline --abbrev-commit
+````
+
+比如对应的commit id是`f52c633`，敲入命令：
+
+````ruby
+$ git tag v0.9 f52c633
+````
+
+再用`git tag`查看标签：
+
+````ruby
+$ git tag
+v0.9
+v1.0
+````
+
+**注意**，标签不是按照时间顺序列出，而是按字母排序的。可以用`git show <tagname>`查看标签信息：
+
+````ruby
+$ git show v0.9
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
