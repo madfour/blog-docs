@@ -879,76 +879,68 @@ $ git show v0.9
 还可以创建带有说明的标签，用`-a`指定标签名，`-m`指定说明文字：
 
 ````ruby
-$ git log -a v0.1 -m "version 0.1 released" 9cff3e9
+$ git tag -a v0.1 -m "version 0.1 released" 9cff3e9
 ````
 
 用命令`git show <tagname>`可以看到说明文字
 
+````ruby
+$ git show v0.1
+````
 
+**注意**：标签总是和某个commit挂钩。如果这个commit即出现在`master`上，又出现在`dev`分支撒花姑娘，那么在这两个分支上都可以看到这个标签。
 
+##### 2、操作标签
 
+删除标签：
 
+````ruby
+$ git tag -b v1.0
+````
 
+因为创建的标签都只储存在本地，不会自动推送到远程。所以，打错的标签可以在本地安全删除。
 
+如果要推送某个标签到远程，使用命令`git push origin <tagname>`:
 
+````ruby
+$ git push origin v0.8
+Total 0 (delta 0), reused 0 (delta 0)
+To github.com:zjcLuKeer/Notes.git
+ * [new tag]         v0.8 -> v0.8
 
+````
 
+或者，一次性推送全部尚未推送到远程的本地标签：
 
+````ruby
+$ git push origin --tags
+Total 1 (delta 0), reused 0 (delta 0)
+To github.com:zjcLuKeer/Notes.git
+ * [new tag]         v0.9 -> v0.9
+ * [new tag]         v1.0 -> v1.0
+ * [new tag]         v1.1 -> v1.1
+````
 
+如果，标签已经推送到远程，想要删除远程标签，要先从本地删除：
 
+````ruby
+$ git tag -d v0.8
+Deleted tag 'v0.8' (was 3d49b50)
+````
 
+然后，从远程删除。删除命令也是`push`，但格式如下：
 
+````ruby
+$ git push origin :refs/tags/v0.8
+To github.com:zjcLuKeer/Notes.git
+ - [deleted]         v0.8
+````
 
+######**小结**
 
+- 命令`git push origin <tagname>`可以推送一个本地标签；
+- 命令`git push origin --tags`可以推送全部未推送过的本地标签；
+- 命令`git tag -d <tagname>`可以删除一个本地标签；
+- 命令`git push origin :refs/tags/<tagname>`可以删除一个远程标签。
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 
