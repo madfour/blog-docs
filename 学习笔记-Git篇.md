@@ -876,7 +876,13 @@ v1.0
 $ git show v0.9
 ````
 
+还可以创建带有说明的标签，用`-a`指定标签名，`-m`指定说明文字：
 
+````ruby
+$ git log -a v0.1 -m "version 0.1 released" 9cff3e9
+````
+
+用命令`git show <tagname>`可以看到说明文字
 
 
 
