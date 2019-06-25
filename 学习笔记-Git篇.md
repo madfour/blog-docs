@@ -644,7 +644,7 @@ $ git push origin dev
 > `git pull`失败，原因是没有吧本地`dev`分支和远程`origin/dev`分支的链接，根据提示，设置`dev`和`origin.dev`的链接：
 >
 > ````ruby
-> $ git branch --set -upstream-to=origin/dev dev
+> $ git branch --set-upstream-to=origin/dev dev
 > Branch 'dev' set up to track remote branch 'dev' from 'origin'.
 > ````
 >
