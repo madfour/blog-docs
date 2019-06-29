@@ -1,5 +1,129 @@
 ## Git命令
 
+>####Git指令整理
+>
+>- [ ] ````ruby
+>  $ git init			#初始化
+>  
+>  $ git add <dir>	#添加指定目录到暂存区，包括子目录
+>  $ git add .			#当前目录下所有文件添加到暂存区
+>  $ git add -u		#表示添加编辑或者删除的文件，不包括新添加的文件
+>  
+>  $ git commit -m "提交说明"		#暂存区提交到仓库区
+>  $ git commit -a -m "提交说明"	#工作区中修改后，还未使用git add . 命令添加到暂存区中的文件也一并提交上去。
+>  
+>  $ git clone git@github.com:zjcLuKeer/learngit.git	
+>  #将远程仓库克隆到本地开发（多人协作开发）
+>  
+>  # git config 	(--global参数是全局参数，也就是这些命令在这台电脑的所有Git仓库下都有用。  如果不加，那只针对当前的仓库起作用。)
+>  $ git config --list		#显示当前的Git配置
+>  $ git config user.name 	#查看用户名/邮箱
+>  $ git config user.email 
+>  $ git config --global user.name "Your Name"		#设置全局用户名和邮箱
+>  $ git config --global user.email "email@example.com"
+>  
+>  $ git status	#查看文件状态；还可以在分支合并冲突的时候提示哪个文件冲突
+>  
+>  $ git log  		#查看当前分支的版本历史
+>  $ git log --stat	#查看commit历史， 以及每次commit发生变更的文件
+>  $ git log --pretty=oneline	#查看从最近到最远的提交日志，--pretty=oneline:单行模式
+>  $ git log --graph	#查看分支合并图
+>  $ git log --graph --pretty=oneline	#查看分支合并图；简单日志
+>  $ git log --graph --pretty=oneline --abbrev-commit	#查看分支合并图；简单日志；commit的ID的前几位
+>  $ git reflog	#查看命令历史，以便确定要回到未来的哪个版本
+>  $ git log -1	#查看最近一次的提交信息
+>  $ git log -n	#查看最近n次的提交信息
+>  
+>  $ git rm [filename]		#删除工作区文件并放进暂存区
+>  $ git reset HEAD -- [filename]		#如果想从暂存区撤销
+>  $ git checkout -- [filename]		#如果想撤销工作区的修改
+>  $ rm [filename] 	#删除工作区文件, 并没有放进暂存区
+>  $ git checkout -- [filename]	#如果想撤销工作区的修改：
+>  
+>  $ git diff [filename]	#比较的是工作区文件与暂存区文件的差异
+>  $ git diff --cached [filename]	#比较的是暂存区的文件与上一个commit的差异
+>  $ git diff HEAD -- [filename]	#比较的是工作区与当前分支最新commit的差异
+>  
+>  $ git blame	[filename]	#查看指定文件是什么人在什么时间修改过
+>  
+>  $ git shortlog -sn		#查看所有提交过的用户，按提交次数排序
+>  
+>  $ git show [commit]		#显示某次提交时，文件的变化
+>  $ git show [commit]:[filename]	#显示某次提交时，某个文件的内容(注意[commit]:[filename]冒号之间没有空格)
+>  
+>  $ git checkout -- [filename]	#工作区filename的修改撤销
+>  $ git checkout .		#撤销工作区的全部修改
+>  # 情况一、文件修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+>  # 情况二、文件已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+>  # 总之，就是让这个文件回到最近一次git commit或git add时的状态。	
+>  
+>  $ git checkout [branch]		#切换分支
+>  $ git checkout -b [branch]	#创建并切换到该分支(如果在切换分支的时候，未commit, 有可能会报错)
+>  
+>  $ git checkout -b [branch] [remote]/[branch]
+>  #多人协作时，如果同事从远程库clone时，默认情况下，你的同事只能看到本地的master分支。如果，你的同事要在（[branch]）分支上开发，就必须创建远程([remote])的([branch])到本地
+>  
+>  #他要在dev分支上开发，就必须创建远程origin的dev分支到本地,于是他用这个命令创建本地dev分支
+>  # $ git checkout -b dev origin/dev
+>  
+>  $ git reset [filename]	#重置暂存区的指定文件，与上次commit保持一致，工作区不变
+>  $ git reset --hard	#置暂存区与工作区，与上一次commit保持一致	
+>  $ git reset --hard HEAD~2	#回退到某个版本(这里是从当前版本回退两个版本)
+>  $ git reset --hard commitID		#回退到某个版本（commitID是版本号）
+>  
+>  $ git reset HEAD -- [filename]	#把暂存区的修改撤销(unstage)，重新放回工作区
+>  
+>  $ git branch	#显示已有的分支名称
+>  $ git branch [branch]	#创建分支
+>  $ git branch -a		#列出所有本地分支和远程分支
+>  $ git branch -r		#列出所有远程分支
+>  $ git branch -d [branch]	#删除分支
+>  $ git branch -D [branch]	#强制删除一个还没有合并(已经commit)的分支
+>  =begin
+>  说明：
+>  1、如果一个分支在开发完成以后（分支已经commit）待合并，如果出于某种原因这个分支废弃了，但是这个分支必须删除。git branch -D [branch]
+>  2、如果一个分支还没有commit， 是可以使用 git branch -d [branch]
+>  =end
+>  
+>  =begin
+>  $ git merge (merge之前必须都先commit，即工作区和暂存区使用git status 应该是干净的工作区域，即是已经是最新的commit)
+>  =end
+>  $ git merge [branch]	#合并指定分支([branch])到当前分支
+>  $ git merge --no-ff -m [message] [branch]	#合并指定分支([branch])到当前分支,禁用Fast forward模式
+>  ###### 详细请见【9、分支管理】
+>  
+>  ###### 详细请见【9、分支管理 => BUG分支 】
+>  $ git stash
+>  $ git stash list  #查看使用储存起来的工作现场
+>  $ git stash apply 	#恢复工作现场（但是stash内容并不删除）
+>  $ git stash drop  	#删除stash内容
+>  $ git stash pop  	#恢复工作现场并删除stash内容
+>  
+>  $ git remote	#(git给远程库起的默认名称是origin)
+>  $ git remote -v 	#查看远程库的信息
+>  $ git remote show [remote] 	#显示某个远程仓库的信息
+>  $ git remote add [remote] [url] 	#增加一个新的远程仓库，并命名 (一般是origin)
+>  $ git remote rm [remote]  	#删除远程库
+>  
+>  #git push命令用于将本地分支的更新，推送到远程主机
+>  $ git push [remote] master		#将主分支推送到远程库
+>  $ git push [remote] [branch] 		#将([branch])分支推送到远程库
+>  $ git push [remote] --delete [branch] 		#删除远程分支
+>  $ git push [remote] [tagname] 		#推送某个标签到远程
+>  $ git push [remote] --tags 		#一次性推送全部尚未推送到远程的本地标签
+>  ###### 详细请见【推送分支】
+>  
+>  
+>  
+>  
+>  
+>  
+>  ````
+>
+>
+
+
+
 ### 0、安装Git
 
 > 安装不演示
