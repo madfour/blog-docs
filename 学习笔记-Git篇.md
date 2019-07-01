@@ -1,126 +1,251 @@
 ## Git命令
 
+>#### 明确一些git中的概念
+>
+>##### Git版本管理工具中四个区域的概念
+>
+>+ workspace	工作区
+>
+>+ Stage   暂存区
+>
+>+ Repository   仓库去(或本地仓库)
+>
+>+ Remote  远程仓库
+>
+>  其中工作区和暂存区在各个不同的分支中是共享的（方便理解stash操作）
+>
+>##### git中文件状态
+>
+>+ untracked  新建文件，没有git add [filename]的都属于未被Git追踪的文件
+>+ 未加入到暂存区的文件：指的是已经被追踪(tracked)过，但是没有加入到暂存区(已经执行过git add的但是这次修改后还没有git add)
+>
+>----
+>
+>
+>
 >####Git指令整理
 >
-> ````ruby
->  $ git init			#初始化
->  
->  $ git add <dir>	#添加指定目录到暂存区，包括子目录
->  $ git add .			#当前目录下所有文件添加到暂存区
->  $ git add -u		#表示添加编辑或者删除的文件，不包括新添加的文件
->  
->  $ git commit -m "提交说明"		#暂存区提交到仓库区
->  $ git commit -a -m "提交说明"	#工作区中修改后，还未使用git add . 命令添加到暂存区中的文件也一并提交上去。
->  
->  $ git clone git@github.com:zjcLuKeer/learngit.git	
->  #将远程仓库克隆到本地开发（多人协作开发）
->  
->  # git config 	(--global参数是全局参数，也就是这些命令在这台电脑的所有Git仓库下都有用。  如果不加，那只针对当前的仓库起作用。)
->  $ git config --list		#显示当前的Git配置
->  $ git config user.name 	#查看用户名/邮箱
->  $ git config user.email 
->  $ git config --global user.name "Your Name"		#设置全局用户名和邮箱
->  $ git config --global user.email "email@example.com"
->  
->  $ git status	#查看文件状态；还可以在分支合并冲突的时候提示哪个文件冲突
->  
->  $ git log  		#查看当前分支的版本历史
->  $ git log --stat	#查看commit历史， 以及每次commit发生变更的文件
->  $ git log --pretty=oneline	#查看从最近到最远的提交日志，--pretty=oneline:单行模式
->  $ git log --graph	#查看分支合并图
->  $ git log --graph --pretty=oneline	#查看分支合并图；简单日志
->  $ git log --graph --pretty=oneline --abbrev-commit	#查看分支合并图；简单日志；commit的ID的前几位
->  $ git reflog	#查看命令历史，以便确定要回到未来的哪个版本
->  $ git log -1	#查看最近一次的提交信息
->  $ git log -n	#查看最近n次的提交信息
->  
->  $ git rm [filename]		#删除工作区文件并放进暂存区
->  $ git reset HEAD -- [filename]		#如果想从暂存区撤销
->  $ git checkout -- [filename]		#如果想撤销工作区的修改
->  $ rm [filename] 	#删除工作区文件, 并没有放进暂存区
->  $ git checkout -- [filename]	#如果想撤销工作区的修改：
->  
->  $ git diff [filename]	#比较的是工作区文件与暂存区文件的差异
->  $ git diff --cached [filename]	#比较的是暂存区的文件与上一个commit的差异
->  $ git diff HEAD -- [filename]	#比较的是工作区与当前分支最新commit的差异
->  
->  $ git blame	[filename]	#查看指定文件是什么人在什么时间修改过
->  
->  $ git shortlog -sn		#查看所有提交过的用户，按提交次数排序
->  
->  $ git show [commit]		#显示某次提交时，文件的变化
->  $ git show [commit]:[filename]	#显示某次提交时，某个文件的内容(注意[commit]:[filename]冒号之间没有空格)
->  
->  $ git checkout -- [filename]	#工作区filename的修改撤销
->  $ git checkout .		#撤销工作区的全部修改
->  # 情况一、文件修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
->  # 情况二、文件已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
->  # 总之，就是让这个文件回到最近一次git commit或git add时的状态。	
->  
->  $ git checkout [branch]		#切换分支
->  $ git checkout -b [branch]	#创建并切换到该分支(如果在切换分支的时候，未commit, 有可能会报错)
->  
->  $ git checkout -b [branch] [remote]/[branch]
->  #多人协作时，如果同事从远程库clone时，默认情况下，你的同事只能看到本地的master分支。如果，你的同事要在（[branch]）分支上开发，就必须创建远程([remote])的([branch])到本地
->  
->  #他要在dev分支上开发，就必须创建远程origin的dev分支到本地,于是他用这个命令创建本地dev分支
->  # $ git checkout -b dev origin/dev
->  
->  $ git reset [filename]	#重置暂存区的指定文件，与上次commit保持一致，工作区不变
->  $ git reset --hard	#置暂存区与工作区，与上一次commit保持一致	
->  $ git reset --hard HEAD~2	#回退到某个版本(这里是从当前版本回退两个版本)
->  $ git reset --hard commitID		#回退到某个版本（commitID是版本号）
->  
->  $ git reset HEAD -- [filename]	#把暂存区的修改撤销(unstage)，重新放回工作区
->  
->  $ git branch	#显示已有的分支名称
->  $ git branch [branch]	#创建分支
->  $ git branch -a		#列出所有本地分支和远程分支
->  $ git branch -r		#列出所有远程分支
->  $ git branch -d [branch]	#删除分支
->  $ git branch -D [branch]	#强制删除一个还没有合并(已经commit)的分支
->  =begin
->  说明：
->  1、如果一个分支在开发完成以后（分支已经commit）待合并，如果出于某种原因这个分支废弃了，但是这个分支必须删除。git branch -D [branch]
->  2、如果一个分支还没有commit， 是可以使用 git branch -d [branch]
->  =end
->  
->  =begin
->  $ git merge (merge之前必须都先commit，即工作区和暂存区使用git status 应该是干净的工作区域，即是已经是最新的commit)
->  =end
->  $ git merge [branch]	#合并指定分支([branch])到当前分支
->  $ git merge --no-ff -m [message] [branch]	#合并指定分支([branch])到当前分支,禁用Fast forward模式
->  ###### 详细请见【9、分支管理】
->  
->  ###### 详细请见【9、分支管理 => BUG分支 】
->  $ git stash
->  $ git stash list  #查看使用储存起来的工作现场
->  $ git stash apply 	#恢复工作现场（但是stash内容并不删除）
->  $ git stash drop  	#删除stash内容
->  $ git stash pop  	#恢复工作现场并删除stash内容
->  
->  $ git remote	#(git给远程库起的默认名称是origin)
->  $ git remote -v 	#查看远程库的信息
->  $ git remote show [remote] 	#显示某个远程仓库的信息
->  $ git remote add [remote] [url] 	#增加一个新的远程仓库，并命名 (一般是origin)
->  $ git remote rm [remote]  	#删除远程库
->  
->  #git push命令用于将本地分支的更新，推送到远程主机
->  $ git push [remote] master		#将主分支推送到远程库
->  $ git push [remote] [branch] 		#将([branch])分支推送到远程库
->  $ git push [remote] --delete [branch] 		#删除远程分支
->  $ git push [remote] [tagname] 		#推送某个标签到远程
->  $ git push [remote] --tags 		#一次性推送全部尚未推送到远程的本地标签
->  ###### 详细请见【推送分支】
->  
->  
->  
->  
->  
->  
->  ````
+>````ruby
+>$ git init			#初始化
+>
+>$ git add <dir>	#添加指定目录到暂存区，包括子目录
+>$ git add .			#当前目录下所有文件添加到暂存区
+>$ git add -u		#表示添加编辑或者删除的文件，不包括新添加的文件
+>
+>$ git commit -m "提交说明"		#暂存区提交到仓库区
+>$ git commit -a -m "提交说明"	#工作区中修改后，还未使用git add . 命令添加到暂存区中的文件也一并提交上去。
+>
+>$ git clone git@github.com:zjcLuKeer/learngit.git	
+>#将远程仓库克隆到本地开发（多人协作开发）
+>
+># git config 	(--global参数是全局参数，也就是这些命令在这台电脑的所有Git仓库下都有用。  如果不加，那只针对当前的仓库起作用。)
+>$ git config --list		#显示当前的Git配置
+>$ git config user.name 	#查看用户名/邮箱
+>$ git config user.email 
+>$ git config --global user.name "Your Name"		#设置全局用户名和邮箱
+>$ git config --global user.email "email@example.com"
+>
+>$ git status	#查看文件状态；还可以在分支合并冲突的时候提示哪个文件冲突
+>
+>$ git log  		#查看当前分支的版本历史
+>$ git log --stat	#查看commit历史， 以及每次commit发生变更的文件
+>$ git log --pretty=oneline	#查看从最近到最远的提交日志，--pretty=oneline:单行模式
+>$ git log --graph	#查看分支合并图
+>$ git log --graph --pretty=oneline	#查看分支合并图；简单日志
+>$ git log --graph --pretty=oneline --abbrev-commit	#查看分支合并图；简单日志；commit的ID的前几位
+>$ git reflog	#查看命令历史，以便确定要回到未来的哪个版本
+>$ git log -1	#查看最近一次的提交信息
+>$ git log -n	#查看最近n次的提交信息
+>
+>$ git rm [filename]		#删除工作区文件并放进暂存区
+>$ git reset HEAD -- [filename]		#如果想从暂存区撤销
+>$ git checkout -- [filename]		#如果想撤销工作区的修改
+>$ rm [filename] 	#删除工作区文件, 并没有放进暂存区
+>$ git checkout -- [filename]	#如果想撤销工作区的修改：
+>
+>$ git diff [filename]	#比较的是工作区文件与暂存区文件的差异
+>$ git diff --cached [filename]	#比较的是暂存区的文件与上一个commit的差异
+>$ git diff HEAD -- [filename]	#比较的是工作区与当前分支最新commit的差异
+>
+>$ git blame	[filename]	#查看指定文件是什么人在什么时间修改过
+>
+>$ git shortlog -sn		#查看所有提交过的用户，按提交次数排序
+>
+>$ git show [commit]		#显示某次提交时，文件的变化
+>$ git show [commit]:[filename]	#显示某次提交时，某个文件的内容(注意[commit]:[filename]冒号之间没有空格)
+>
+>$ git checkout -- [filename]	#工作区filename的修改撤销
+>$ git checkout .		#撤销工作区的全部修改
+># 情况一、文件修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+># 情况二、文件已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+># 总之，就是让这个文件回到最近一次git commit或git add时的状态。	
+>
+>$ git checkout [branch]		#切换分支
+>$ git checkout -b [branch]	#创建并切换到该分支(如果在切换分支的时候，未commit, 有可能会报错)
+>
+>$ git checkout -b [branch] [remote]/[branch]
+>#多人协作时，如果同事从远程库clone时，默认情况下，你的同事只能看到本地的master分支。如果，你的同事要在（[branch]）分支上开发，就必须创建远程([remote])的([branch])到本地
+>
+>#他要在dev分支上开发，就必须创建远程origin的dev分支到本地,于是他用这个命令创建本地dev分支
+># $ git checkout -b dev origin/dev
+>
+>$ git reset [filename]	#重置暂存区的指定文件，与上次commit保持一致，工作区不变
+>$ git reset --hard	#置暂存区与工作区，与上一次commit保持一致	
+>$ git reset --hard HEAD~2	#回退到某个版本(这里是从当前版本回退两个版本)
+>$ git reset --hard commitID		#回退到某个版本（commitID是版本号）
+>
+>$ git reset HEAD -- [filename]	#把暂存区的修改撤销(unstage)，重新放回工作区
+>
+>$ git branch	#显示已有的分支名称
+>$ git branch [branch]	#创建分支
+>$ git branch -a		#列出所有本地分支和远程分支
+>$ git branch -r		#列出所有远程分支
+>$ git branch -d [branch]	#删除分支
+>$ git branch -D [branch]	#强制删除一个还没有合并(已经commit)的分支
+>=begin
+>说明：
+>1、如果一个分支在开发完成以后（分支已经commit）待合并，如果出于某种原因这个分支废弃了，但是这个分支必须删除。git branch -D [branch]
+>2、如果一个分支还没有commit， 是可以使用 git branch -d [branch]
+>=end
+>
+>=begin
+>$ git merge (merge之前必须都先commit，即工作区和暂存区使用git status 应该是干净的工作区域，即是已经是最新的commit)
+>=end
+>$ git merge [branch]	#合并指定分支([branch])到当前分支
+>$ git merge --no-ff -m [message] [branch]	#合并指定分支([branch])到当前分支,禁用Fast forward模式
+>###### 详细请见【9、分支管理】
+>
+>###### 详细请见【9、分支管理 => BUG分支 】
+>$ git stash
+>$ git stash list  #查看使用储存起来的工作现场
+>$ git stash apply 	#恢复工作现场（但是stash内容并不删除）
+>$ git stash drop  	#删除stash内容
+>$ git stash pop  	#恢复工作现场并删除stash内容
+>
+>$ git remote	#(git给远程库起的默认名称是origin)
+>$ git remote -v 	#查看远程库的信息
+>$ git remote show [remote] 	#显示某个远程仓库的信息
+>$ git remote add [remote] [url] 	#增加一个新的远程仓库，并命名 (一般是origin)
+>$ git remote rm [remote]  	#删除远程库
+>
+>#git push命令用于将本地分支的更新，推送到远程主机
+>$ git push [remote] master		#将主分支推送到远程库
+>$ git push [remote] [branch] 		#将([branch])分支推送到远程库
+>$ git push [remote] --delete [branch] 		#删除远程分支
+>$ git push [remote] [tagname] 		#推送某个标签到远程
+>$ git push [remote] --tags 		#一次性推送全部尚未推送到远程的本地标签
+>###### 详细请见【推送分支】
+>
+>$ git pull [remote] [branch-name]	#取回远程仓库的变化，并与本地分支合并；
+># 说明:在向远程库推送某个分支的时候，需要先"Git pull"更新本地的代码
+>=begin
+>即：如果你的同事先在dev分支推送他的提交，接下来你去推送很有可能会失败。因为你的同事最新提交和你试图推送的提交有冲突，
+>	解决办法也很简单，Git已经提示我们，先用git pull把最新的提交从origin/dev抓下来，然后，在本地合并，解决冲突，
+>	git add -> git commit -> 再推送
+>=end
+>
+>=begin
+>$ git pull
+>There is no tracking information for the current branch.
+>Please specify which branch you want to merge with.
+>See git-pull(1) for details.
+>
+> git pull <remote> <branch>
+>
+>If you wish to set tracking information for this branch you can do so with:
+>
+> git branch --set-upstream-to=origin/<branch> dev
+>
+>上面git pull失败，原因是没有吧本地dev分支和远程origin/dev分支的链接，根据提示，设置dev和origin.dev的链接
+>=end
+>    
+>$ git branch --set-upstream-to=origin/dev dev
+>Branch 'dev' set up to track remote branch 'dev' from 'origin'.
+>#再Git pull   
+>    
+>$ git pull --rebase origin master 
+>=begin
+>远程库同步到本地库  （解决的问题：error: failed to push some refs to ‘git@github.com:zjcLuKeer/learngit.git’）
+>=end
+>
+>$ git tag [tagname]		#为当前HEAD打标签(本地tag)
+>$ git tag [tgnname] commitId	#commitId默认为HEAD;本地tag
+>$ git tag		#查看所有标签信息
+>$ git tag -a [tagname] -m [message] commitId	#为本地tag添加说明
+>$ git show [tagname]		#查看某个tag信息
+>$ git tag -d [tagname]		#删除本地标签
+>
+>$ git tag -d [tagname]
+>$ git push [remote] :refs/tags/[tagname]
+>=begin
+>- 命令git tag -d <tagname>先删除本地标签；
+>- 命令git push origin :refs/tags/<tagname>再删除远程标签。
+>=end
+>
+>$ git checkout -b [branch] [tagname]	#新建一个分支，指向某个tag
+>
+># git fetch 取回远程仓库的变化，但并不会主动与本地分支合并。(这个比Git pull更安全)
+>#方法一：
+>$ git fetch origin master	#从远程的origin仓库的master分支下载代码到本地的origin master
+>$ git log -p master.. origin/master		#比较本地的仓库和远程参考的区别
+>$ git merge origin/master		#把远程下载下来的代码合并到本地仓库，远程的和本地的合并
+>
+>#方法二:
+>$ git fetch origin master:temp	#从远程的origin仓库的master分支下载到本地并新建一个分支temp
+>$ git diff temp		#比较master分支和temp分支的不同
+>$ git merge temp 		#合并temp分支到master分支
+>$ git branch -d temp		#删除temp
+>
+>   
+>````
+>
+>####git自定义
+>
+>##### 1、忽略特殊文件
+>
+>> 有些时候，你必须把某些文件放到Git工作目录中，但又不能提交它们，比如保存了数据库密码的配置文件啦，等等，每次git status都会显示Untracked files ...，有强迫症的童鞋心里肯定不爽。
+>>
+>> 好在Git考虑到了大家的感受，这个问题解决起来也很简单：
+>>
+>> 在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件不需要从头写.gitignore文件，GitHub已经为我们准备了各种配置文件，只需要组合一下就可以使用了。所有配置文件可以直接在线浏览. 查看请点击下面的链接  https://github.com/github/gitignore
+>
+>##### 配置别名
+>
+>（--global参数是全局参数，也就是这些命令在这台电脑的所有Git仓库下都有用,针对当前用户。如果不加，那只针对当前的仓库起作用。）
+>
+>````ruby
+>git config --global alias.st status 	#（为查看状态配置别名）
+>git config --global alias.last 'log -1' 	#（为显示最后一次提交信息配置别名）
+>git config --global alias.unstage 'reset HEAD'	#(为暂存区的修改撤销回工作区配置别名)
+>git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+>````
+>
+>配置文件放的位置：
+>
+>+ 每个仓库的Git配置文件都放在.git/config文件中
+>+  当前用户的Git配置文件放在用户主目录下的一个隐藏文件.gitconfig中 
+>+  我们可以直接在配置文件中进行配置
 >
 >
+>
+>--------------
+>
+>#####git上传项目到github一般流程
+>
+>+ 本地项目git init -> git add . -> git commit -m '注释'
+>+ 在github上创建项目
+>+ git remote add [remote] [url]
+>+ 如果在github上创建的项目不包含README.md（即使一个空文件夹），则git push -u origin master 直接就可以了
+>+ 如果在github上创建的项目包含README.md，但是在本地的文件夹中没有这个文件， 
+>  首先 git pull --rebase origin master（依照远程库README.md内容为准）将远程库同步到本地库，
+>  然后 git push -u origin master 就可以了
+>+ 如果在github上创建的项目包含README.md, 
+>  本地文件夹中也包含这个文件，则git pull origin master --allow-unrelated-histories，
+>  然后如果发现有冲突则解决冲突（也可以使用git fetch origin master --allow-unrelated-histories, 
+>  然后手动 git merge origin/master）， 然后git add README.md, git commit -m '注释',
+>  最后 git push -u origin master
+
+
 
 
 
