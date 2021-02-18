@@ -1,3 +1,5 @@
+# Notes 目录
+
 ## JavaScript
 
 1.[介绍下防抖和节流，它们的区别与实现？](https://github.com/madfour/blog/issues/4#issue-810849355)
