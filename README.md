@@ -42,12 +42,16 @@
 
 1.[['1', '2', '3'].map(parseInt) 的结果是什么? why?](https://github.com/madfour/blog/issues/1#issue-810837931)
 
-2.[`将一个数组（[1, [2, 3, [4, 5]]]）`扁平化，并去重排序](https://github.com/madfour/blog/issues/3#issue-810844143)
+2.[将一个数组（[1, [2, 3, [4, 5]]]）扁平化，并去重排序](https://github.com/madfour/blog/issues/3#issue-810844143)
 
 3.[请写出如下代码的打印结果（分析）](https://github.com/madfour/blog/issues/14)
 
 
 ## 浏览器相关
+
+
+## 开发笔记
+
 
 
 
