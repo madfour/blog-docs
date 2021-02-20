@@ -12,6 +12,8 @@
 
 5.[JavaScript排序算法二（快速排序、堆排序、计数排序、桶排序、基数排序）](https://github.com/madfour/blog/issues/12#issue-810876778)
 
+6.[javascript常用数组操作方法](https://github.com/madfour/blog/issues/16#issue-812541742)
+
 
 ## ES6
 
