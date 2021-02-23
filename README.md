@@ -16,6 +16,12 @@
 
 6.[javascript常用数组操作方法](https://github.com/madfour/blog/issues/16#issue-812541742)
 
+7.[介绍几种判断数组的方法，有什么区别与优劣?](https://github.com/madfour/blog/issues/17#issue-813295657)
+
+8.[使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果](https://github.com/madfour/blog/issues/19)
+
+
+
 
 ## ES6
 
