@@ -22,6 +22,9 @@
 
 9.[javascript中`call()`、`apply()`、`bind()`的用法与理解](https://github.com/madfour/blog/issues/20)
 
+10.[箭头函数和普通函数(function)的区别是什么?](https://github.com/madfour/blog/issues/21)
+
+
 
 ## ES6
 
@@ -31,6 +34,15 @@
 ## vue相关
 
 1.[vue项目列表组件中，key的作用是什么?](https://github.com/madfour/blog/issues/8#issue-810860065)
+
+
+## 编程题
+
+1.[['1', '2', '3'].map(parseInt) 的结果是什么? why?](https://github.com/madfour/blog/issues/1#issue-810837931)
+
+2.[将一个数组（[1, [2, 3, [4, 5]]]）扁平化，并去重排序](https://github.com/madfour/blog/issues/3#issue-810844143)
+
+3.[请写出如下代码的打印结果（分析）](https://github.com/madfour/blog/issues/14)
 
 
 ## CSS小知识
@@ -45,14 +57,6 @@
 
 5.[如何清除浮动?](https://github.com/madfour/blog/issues/15#issue-811670313)
 
-
-## 编程题
-
-1.[['1', '2', '3'].map(parseInt) 的结果是什么? why?](https://github.com/madfour/blog/issues/1#issue-810837931)
-
-2.[将一个数组（[1, [2, 3, [4, 5]]]）扁平化，并去重排序](https://github.com/madfour/blog/issues/3#issue-810844143)
-
-3.[请写出如下代码的打印结果（分析）](https://github.com/madfour/blog/issues/14)
 
 
 ## 浏览器相关
