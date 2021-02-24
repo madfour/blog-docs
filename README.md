@@ -20,7 +20,7 @@
 
 8.[使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果](https://github.com/madfour/blog/issues/19)
 
-
+9.[javascript中`call()`、`apply()`、`bind()`的用法与理解](https://github.com/madfour/blog/issues/20)
 
 
 ## ES6
