@@ -1,7 +1,3 @@
-## 给自己的一个底线：**每天写一条**
-
-# Notes 目录
-
 ## JavaScript
 
 1.[函数防抖和节流，它们的区别与实现？](https://github.com/madfour/blog/issues/4#issue-810849355)
@@ -24,7 +20,11 @@
 
 10.[箭头函数和普通函数(function)的区别是什么?](https://github.com/madfour/blog/issues/21)
 
+## 异步
 
+1.[setTimeout、Promise、Async/Await 的区别](https://github.com/madfour/blog/issues/25)
+
+2.[Async/Await 如何通过同步的方式实现异步](https://github.com/madfour/blog/issues/26)
 
 ## ES6
 
@@ -43,6 +43,10 @@
 2.[将一个数组（[1, [2, 3, [4, 5]]]）扁平化，并去重排序](https://github.com/madfour/blog/issues/3#issue-810844143)
 
 3.[请写出如下代码的打印结果（分析）](https://github.com/madfour/blog/issues/14)
+
+4.[下面两题的代码的各自的打印结果是?](https://github.com/madfour/blog/issues/23)
+
+5.[请写出下列代码的打印结果(同异步问题)](https://github.com/madfour/blog/issues/24)
 
 
 ## CSS小知识
