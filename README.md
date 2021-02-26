@@ -20,6 +20,8 @@
 
 10.[箭头函数和普通函数(function)的区别是什么?](https://github.com/madfour/blog/issues/21)
 
+11.[JavaScript中var、let和const的区别](https://github.com/madfour/blog/issues/29)
+
 
 ## ES6 & 异步
 
