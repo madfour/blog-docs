@@ -20,15 +20,15 @@
 
 10.[箭头函数和普通函数(function)的区别是什么?](https://github.com/madfour/blog/issues/21)
 
-## 异步
 
-1.[setTimeout、Promise、Async/Await 的区别](https://github.com/madfour/blog/issues/25)
-
-2.[Async/Await 如何通过同步的方式实现异步](https://github.com/madfour/blog/issues/26)
-
-## ES6
+## ES6 & 异步
 
 1.[介绍Set、Map、WeakSet、WeakMap ](https://github.com/madfour/blog/issues/5#issue-810851439)
+
+2..[setTimeout、Promise、Async/Await 的区别](https://github.com/madfour/blog/issues/25)
+
+3.[Promise 构造函数是同步执行还是异步执行，那么 then 方法呢?](https://github.com/madfour/blog/issues/27)
+
 
 
 ## vue相关
