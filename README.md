@@ -56,6 +56,7 @@
 
 8.[写一个方法来计算出两个给定数组的交集(公共子序列)](https://github.com/madfour/blog/issues/32)
 
+9.[随机生成一个长度为 10 的整数类型的数组，将其排列成一个规定形式的数组](https://github.com/madfour/blog/issues/33)
 
 
 
