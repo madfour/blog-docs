@@ -52,6 +52,8 @@
 
 6.[请把俩个数组 [A1, A2, B1, B2, C1, C2] 和 [A, B, C]，合并为 [A1, A2, A, B1, B2, B, C1, C2, C]](https://github.com/madfour/blog/issues/30)
 
+7.[JS计算两个数组的交集、差集、并集、补集](https://github.com/madfour/blog/issues/31)
+
 
 ## CSS小知识
 
