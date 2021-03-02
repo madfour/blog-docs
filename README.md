@@ -54,6 +54,10 @@
 
 7.[JS计算两个数组的交集、差集、并集、补集](https://github.com/madfour/blog/issues/31)
 
+8.[写一个方法来计算出两个给定数组的交集(公共子序列)](https://github.com/madfour/blog/issues/32)
+
+
+
 
 ## CSS小知识
 
