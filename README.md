@@ -58,7 +58,7 @@
 
 9.[随机生成一个长度为 10 的整数类型的数组，将其排列成一个规定形式的数组](https://github.com/madfour/blog/issues/33)
 
-
+10.[数字转换金额格式（以每三位用逗号进行分隔展示），或中文大写格式](https://github.com/madfour/blog/issues/34)
 
 ## CSS小知识
 
