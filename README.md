@@ -62,7 +62,7 @@
 
 
 
-## CSS小知识
+## CSS相关
 
 1.[比较 opacity: 0、visibility: hidden、display: none 优劣和适用场景](https://github.com/madfour/blog/issues/6#issue-810857634)
 
@@ -77,7 +77,12 @@
 6.[px和em、rem的区别?](https://github.com/madfour/blog/issues/35)
 
 
-## 浏览器相关
+
+## 浏览器以及网络HTTP相关
+
+1.[说说从浏览器地址栏输入 url 到显示页面的步骤](https://github.com/madfour/blog/issues/36#issue-822174648)
+
+2.[一次完整的HTTP事务是怎样一个过程?](https://github.com/madfour/blog/issues/37)
 
 
 
