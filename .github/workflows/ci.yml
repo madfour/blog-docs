@@ -1,0 +1,44 @@
+name: CI
+
+#on: [push]
+
+# 在master分支发生push事件时触发。
+# on:
+#   push:
+#     branches:
+#       - master
+
+env: # 设置环境变量
+  TZ: Asia/Shanghai # 时区（设置时区可使页面中的`最近更新时间`使用时区时间）
+
+jobs:
+  build: # 自定义名称
+    runs-on: ubuntu-latest # 运行在虚拟机环境ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Checkout # 步骤1
+        uses: actions/checkout@v1 # 使用的动作。格式：userName/repoName。作用：检出仓库，获取源码。 官方actions库：https://github.com/actions
+
+      - name: Use Node.js ${{ matrix.node-version }} # 步骤2
+        uses: actions/setup-node@v1 # 作用：安装nodejs
+        with:
+          node-version: ${{ matrix.node-version }} # 版本
+
+      - name: Install and build
+        run: |
+          npm install
+          npm run build
+
+      - name: Deploy to aliyun server # 为 step 指定一个名称，将会在 github action 的控制台中显示
+        uses: easingthemes/ssh-deploy@v2.1.5 #可以访问的仓库，实现的上传服务器步骤被封装在此action
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} #这个是阿里云的私钥
+          ARGS: '-avzr --delete'
+          SOURCE: 'docs/.vuepress/dist/'
+          REMOTE_HOST: ${{ secrets.HOST }} #阿里云的 ip
+          REMOTE_USER: 'root' #阿里云用户
+          TARGET: '/root/web/blog-docs' #被部署的服务器路径
