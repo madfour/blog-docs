@@ -1,12 +1,10 @@
 name: CI
 
-#on: [push]
-
 # 在master分支发生push事件时触发。
-# on:
-#   push:
-#     branches:
-#       - master
+on:
+  push:
+    branches:
+      - master
 
 env: # 设置环境变量
   TZ: Asia/Shanghai # 时区（设置时区可使页面中的`最近更新时间`使用时区时间）
@@ -37,8 +35,11 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.1.5 #可以访问的仓库，实现的上传服务器步骤被封装在此action
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} #这个是阿里云的私钥
-          ARGS: '-avzr --delete'
+          # ARGS: '-avzr --delete'
+          ARGS: '-rltgoDzvO --delete'
           SOURCE: 'docs/.vuepress/dist/'
           REMOTE_HOST: ${{ secrets.HOST }} #阿里云的 ip
           REMOTE_USER: 'root' #阿里云用户
-          TARGET: '/root/web/blog-docs' #被部署的服务器路径
+          # TARGET: '/root/web/blog-docs' #被部署的服务器路径
+          TARGET: /root/node-server # 打包后的 dist 文件夹将放在 /root/node-server
+
