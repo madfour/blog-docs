@@ -21,8 +21,7 @@ module.exports = [
         { text: 'HTML', link: '/HTML/' },
         { text: 'CSS', link: '/CSS/' }
       ]
-    }
-    ]
+    }]
   },
   {
     text: '题库',
