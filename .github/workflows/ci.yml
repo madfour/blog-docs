@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v1 # 使用的动作。格式：userName/repoName。作用：检出仓库，获取源码。 官方actions库：https://github.com/actions
 
       - name: Use Node.js ${{ matrix.node-version }} # 步骤2
-        uses: actions/setup-node@v1 # 作用：安装nodejs
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }} # 版本
 
@@ -34,11 +34,10 @@ jobs:
       - name: Deploy to aliyun server # 为 step 指定一个名称，将会在 github action 的控制台中显示
         uses: easingthemes/ssh-deploy@v2.1.5 #可以访问的仓库，实现的上传服务器步骤被封装在此action
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} #这个是阿里云的私钥
-          # ARGS: '-avzr --delete'
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} #服务器的私钥
           ARGS: '-rltgoDzvO --delete'
           SOURCE: 'docs/.vuepress/dist/'
-          REMOTE_HOST: ${{ secrets.HOST }} #阿里云的 ip
-          REMOTE_USER: 'root' #阿里云用户
+          REMOTE_HOST: ${{ secrets.HOST }} #ip
+          REMOTE_USER: 'root' #用户
           TARGET: /www/wwwroot/madfour.cn # 放置文件的路径
 
