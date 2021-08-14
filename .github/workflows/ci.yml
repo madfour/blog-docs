@@ -21,10 +21,10 @@ jobs:
       - name: Checkout # 步骤1
         uses: actions/checkout@v1 # 使用的动作。格式：userName/repoName。作用：检出仓库，获取源码。 官方actions库：https://github.com/actions
 
-      - name: Use Node.js ${{ matrix.node-version }} # 步骤2
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }} # 版本
+      # - name: Use Node.js ${{ matrix.node-version }} # 步骤2
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: ${{ matrix.node-version }} # 版本
 
       - name: Install and build
         run: |
