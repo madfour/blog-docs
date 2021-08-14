@@ -33,12 +33,10 @@ jobs:
 
       - name: Deploy to aliyun server # 为 step 指定一个名称，将会在 github action 的控制台中显示
         uses: easingthemes/ssh-deploy@main # https://github.com/marketplace/actions/ssh-deploy
-        # uses: easingthemes/ssh-deploy@v2.1.5 #可以访问的仓库，实现的上传服务器步骤被封装在此action
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} #服务器的私钥
-          # ARGS: '-rltgoDzvO --delete'
-          ARGS: '-avzr --delete'
+          ARGS: '-rltgoDzvO --delete'
           SOURCE: 'docs/.vuepress/dist/'
-          REMOTE_HOST: ${{ secrets.HOST }} #ip
-          REMOTE_USER: 'root' #用户
-          TARGET: /www/wwwroot/madfour.cn/ # 放置文件的路径
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: 'root'
+          TARGET: '/www/wwwroot/madfour.cn'
