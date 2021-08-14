@@ -37,7 +37,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} #这个是阿里云的私钥
           # ARGS: '-avzr --delete'
           ARGS: '-rltgoDzvO --delete'
-          SOURCE: 'docs/.vuepress/dist'
+          SOURCE: 'docs/.vuepress/dist/'
           REMOTE_HOST: ${{ secrets.HOST }} #阿里云的 ip
           REMOTE_USER: 'root' #阿里云用户
           TARGET: /www/wwwroot/madfour.cn # 放置文件的路径

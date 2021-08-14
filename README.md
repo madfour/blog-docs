@@ -1,4 +1,4 @@
-## 启动
+## 快速启动
 
 ```bash
 # clone the project
@@ -14,3 +14,16 @@ npm install # or yarn install
 # develop
 npm run dev # or yarn dev
 ```
+
+
+
+### 博客
+
+博客基于 `vuepress` 开发，使用`vuepress-theme-vdoing`的一款博客主题。[主题官方文档](https://xugaoyi.github.io/vuepress-theme-vdoing-doc/)
+
+
+
+### 图片
+
+使用 [PicX](https://picx.xpoet.cn/#/upload) 在线图床管理。[PicX](https://github.com/XPoet/picx)基于 GitHub API 开发的图床管理，图片外链使用 jsDelivr 进行全球 CDN 加速。免费、稳定、高效。
+

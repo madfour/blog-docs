@@ -6,13 +6,12 @@ const blogConfig = require('./blogConfig');
 module.exports = Object.assign({}, blogConfig, {
   nav,
   // htmlModules, // 插入hmtl(广告)模块
-
-  logo: '/Rubick.png', // 导航栏logo
+  logo: 'https://cdn.jsdelivr.net/gh/madfour/ImageStorage@master/blog/Rubick.png', // 导航栏logo
   repo: 'https://github.com/madfour/blog-docs', // 导航栏右侧生成Github链接
 
   blogger: {
     // 博主信息，显示在首页侧边栏
-    avatar: '/Rubick.png',
+    avatar: 'https://cdn.jsdelivr.net/gh/madfour/ImageStorage@master/blog/Rubick.png',
     name: 'MadFour',
     slogan: '认真学习 砥砺前行',
   },

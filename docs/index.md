@@ -5,7 +5,7 @@ heroText: 未成定局的事，就不要搞得人尽皆知
 tagline: Don't make it known to everyone if it is not a foregone conclusion
 # actionText: 立刻进入 →
 # actionLink: /web/
-bannerBg: '/4k-banner2.jpg'
+bannerBg: 'https://cdn.jsdelivr.net/gh/madfour/ImageStorage@master/blog/banner-1.jpg'
 # auto => 网格纹背景(有bodyBgImg时无背景)，默认 | none => 无 | '大图地址' | background: 自定义背景样式       提示：如发现文本颜色不适应你的背景时可以到palette.styl修改$bannerTextColor变量
 
 # features: # 可选的
