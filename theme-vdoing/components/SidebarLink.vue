@@ -100,7 +100,7 @@ function renderExternal(h, to, text) {
 }
 
 a.sidebar-link {
-  font-size: 1em;
+  font-size: 1.05em;
   font-weight: 400;
   display: inline-block;
   color: var(--textColor);
@@ -115,7 +115,7 @@ a.sidebar-link {
   }
 
   &.active {
-    // font-weight 600
+    font-weight: 600;
     color: $accentColor;
     border-left-color: $accentColor;
   }
@@ -130,7 +130,7 @@ a.sidebar-link {
     border-left: none;
 
     &.active {
-      font-weight: 500;
+      font-weight: bold;
     }
   }
 }
