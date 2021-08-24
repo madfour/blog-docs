@@ -1,7 +1,9 @@
 <template>
   <div class="theme-vdoing-content">
     <div class="column-wrapper">
-      <img :src="$withBase(pageData.imgUrl)" />
+      <div class="imgs">
+        <img :src="$withBase(pageData.imgUrl)" />
+      </div>
       <dl class="column-info">
         <dt class="title">{{ pageData.title }}</dt>
         <dd class="description" v-html="pageData.description"></dd>
@@ -149,11 +151,14 @@ dl, dd {
   padding-bottom: 2rem;
   border-bottom: 1px solid var(--borderColor);
 
-  img {
-    width: 80px;
-    height: 80px;
+  .imgs {
+    width: 6rem;
     border-radius: 2px;
     margin-right: 1rem;
+
+    img {
+      width: 100%;
+    }
   }
 
   .column-info {
@@ -250,6 +255,32 @@ dl, dd {
           }
         }
       }
+    }
+  }
+}
+
+@media (max-width: $MQMobile) {
+  .column-wrapper {
+    padding-bottom: 1rem;
+
+    .imgs {
+      margin-right: 0.5rem;
+    }
+
+    .column-info {
+      font-size: 0.9rem;
+
+      .title {
+        font-size: 1.4rem;
+        line-height: 1;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .catalogue-wrapper {
+    .catalogue-title {
+      margin: 1rem 0;
     }
   }
 }

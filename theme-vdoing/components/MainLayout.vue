@@ -67,6 +67,7 @@
 
         .post {
           border-radius: 0;
+          padding: 1rem;
         }
       }
 
