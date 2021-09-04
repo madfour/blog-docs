@@ -21,21 +21,20 @@ module.exports = [
         { text: 'HTML', link: '/HTML/' },
         { text: 'CSS', link: '/CSS/' }
       ]
+    }, {
+      text: '其它',
+      items: [
+        { text: 'HTTP', link: '/https/' }
+      ]
     }]
-  },
-  {
-    text: '题库',
-    link: '/question/',
-    items: [
-      { text: '编程题', link: '/question/efd07f/' },
-      { text: '算法题', link: '/question/a98d32/' }
-    ]
   },
   {
     text: '技巧',
     link: '/skill/',
     items: [
-      { text: '技术文档', link: '/skill/2d9c8f/' }
+      { text: '技术文档', link: '/skill/2d9c8f/' },
+      { text: '算法题', link: '/skill/83e38e/' },
+      { text: '编程题', link: '/skill/599c7b/' }
     ]
   },
   {
