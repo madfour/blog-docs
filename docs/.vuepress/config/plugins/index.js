@@ -81,26 +81,26 @@ module.exports = [
   //   },
   // ],
 
-  // [
-  //   'vuepress-plugin-comment', // 评论
-  //   {
-  //     choosen: 'gitalk',
-  //     options: {
-  //       clientID: '668979fc607d6ef6113a',
-  //       clientSecret: 'c9df458080fca3d0e38fc4948012698bf815ee5c',
-  //       repo: 'blog-gitalk-comment', // GitHub 仓库
-  //       owner: 'madfour', // GitHub仓库所有者
-  //       admin: ['madfour'], // 对仓库有写权限的人
-  //       // distractionFreeMode: true,
-  //       pagerDirection: 'last', // 'first'正序 | 'last'倒序
-  //       id: '<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>', //  页面的唯一标识,长度不能超过50
-  //       title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
-  //       labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
-  //       body:
-  //         '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
-  //     },
-  //   },
-  // ],
+  [
+    'vuepress-plugin-comment', // 评论
+    {
+      choosen: 'gitalk',
+      options: {
+        clientID: '27bf4c7137bbd3452fa0',
+        clientSecret: '4c3ebdeb1e1ff259c5d869e4e73d515bb567b8b7',
+        repo: 'blog-docs', // GitHub 仓库
+        owner: 'madfour', // GitHub仓库所有者
+        admin: ['madfour'], // 对仓库有写权限的人
+        // distractionFreeMode: true,
+        pagerDirection: 'last', // 'first'正序 | 'last'倒序
+        id: '<%- (frontmatter.permalink || frontmatter.to.path).slice(-16) %>', //  页面的唯一标识,长度不能超过50
+        title: '「评论」<%- frontmatter.title %>', // GitHub issue 的标题
+        labels: ['Gitalk', 'Comment'], // GitHub issue 的标签
+        body:
+          '页面：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>', // GitHub issue 的内容
+      },
+    },
+  ],
 
   [
     '@vuepress/last-updated', // "上次更新"时间格式
