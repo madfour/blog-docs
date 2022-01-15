@@ -32,6 +32,7 @@ module.exports = [
     text: '技巧',
     link: '/skill/',
     items: [
+      { text: '命令指令', link: '/skill/ed0cac/' },
       { text: '技术文档', link: '/skill/2d9c8f/' },
       { text: '算法题', link: '/skill/83e38e/' },
       { text: '编程题', link: '/skill/599c7b/' }
@@ -41,7 +42,6 @@ module.exports = [
     text: '其它',
     link: '/other/',
     items: [
-      { text: '技术文档', link: '/other/ed0cac/' },
       { text: '友情链接', link: '/friends/' },
     ]
   },
