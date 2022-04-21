@@ -33,12 +33,12 @@ jobs:
       #     npm install
       #     npm run build
 
-      # - name: Deploy to aliyun server # 为 step 指定一个名称，将会在 github action 的控制台中显示
-      #   uses: easingthemes/ssh-deploy@main # https://github.com/marketplace/actions/ssh-deploy
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} #服务器的私钥
-      #     ARGS: '-rltgoDzvO --delete'
-      #     SOURCE: 'docs/.vuepress/dist'
-      #     REMOTE_HOST: ${{ secrets.HOST }}
-      #     REMOTE_USER: 'root'
-      #     TARGET: '/www/wwwroot/madfour.cn'
+      - name: Deploy to aliyun server # 为 step 指定一个名称，将会在 github action 的控制台中显示
+        uses: easingthemes/ssh-deploy@main # https://github.com/marketplace/actions/ssh-deploy
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} #服务器的私钥
+          ARGS: '-rltgoDzvO --delete'
+          SOURCE: 'docs/.vuepress/dist'
+          REMOTE_HOST: ${{ secrets.HOST }}
+          REMOTE_USER: 'root'
+          TARGET: '/www/wwwroot/madfour.cn'
