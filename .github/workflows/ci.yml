@@ -22,16 +22,10 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: run deploy.sh # 步骤3：执行脚本 deploy.sh
-        # env: # 设置环境变量，未设置则不运行
-        #   GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} # token 
-        #   SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }} # 私钥
-        run: npm install && npm run deploy  # 执行 deploy.sh 脚本，位于项目根目录
-
-      # - name: Install and build  # 步骤3
-      #   run: |
-      #     npm install
-      #     npm run build
+      - name: Install and build  # 步骤3
+        run: |
+          npm install
+          npm run build
 
       - name: Deploy to aliyun server # 为 step 指定一个名称，将会在 github action 的控制台中显示
         uses: easingthemes/ssh-deploy@main # https://github.com/marketplace/actions/ssh-deploy
