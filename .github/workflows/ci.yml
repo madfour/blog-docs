@@ -22,10 +22,10 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Install and build
-        run: |
-          npm install
-          npm run build
+      # - name: Install and build
+      #   run: |
+      #     npm install
+      #     npm run build
 
       - name: Deploy to aliyun server # 为 step 指定一个名称，将会在 github action 的控制台中显示
         uses: easingthemes/ssh-deploy@main # https://github.com/marketplace/actions/ssh-deploy
