@@ -19,7 +19,7 @@ npm run dev # or yarn dev
 
 ### 博客
 
-博客基于 `vuepress` 开发，使用`vuepress-theme-vdoing`的一款博客主题。[主题官方文档](https://xugaoyi.github.io/vuepress-theme-vdoing-doc/)
+博客基于 `vuepress` 开发，使用[`vuepress-theme-vdoing`](https://doc.xugaoyi.com/)的一款博客主题
 
 
 
