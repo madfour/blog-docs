@@ -10,12 +10,5 @@ module.exports = {
       text: '浏览器',
       link: '/browser/'
     }
-    // {
-    //   text: '命令',
-    //   items: [
-    //     { text: 'Git', link: '/git/' },
-    //     { text: 'Mac', link: '/mac/' }
-    //   ]
-    // },
   ]
 }

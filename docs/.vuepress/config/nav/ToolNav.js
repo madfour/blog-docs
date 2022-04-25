@@ -7,15 +7,8 @@ module.exports = {
       items: [
         { text: 'Git', link: '/git/' },
         { text: 'NPM', link: '/npm/' },
-        { text: 'Mac', link: '/mac/' }
+        { text: 'Mac', link: '/macorder/' }
       ]
     },
-    // {
-    //   text: '部署',
-    //   items: [
-    //     { text: 'Linux', link: '/linux/' },
-    //     { text: 'Docker', link: '/docker/' },
-    //   ]
-    // },
   ]
 }
