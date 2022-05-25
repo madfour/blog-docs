@@ -1,8 +1,8 @@
 ---
 home: true
 # heroImage: /fox.png
-heroText: 未成定局的事，就不要搞得人尽皆知
-tagline: Don't make it known to everyone if it is not a foregone conclusion
+heroText: 行百里者半九十
+tagline: The last leg of a journey marks the halfway point.
 # actionText: 立刻进入 →
 # actionLink: /web/
 bannerBg: 'https://cdn.jsdelivr.net/gh/madfour/ImageStorage@master/blog/banner-1.jpg'

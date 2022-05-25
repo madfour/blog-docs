@@ -11,7 +11,7 @@ module.exports = {
   theme: require.resolve('../../theme-vdoing'), // 使用本地主题
 
   title: "MadFour blog",
-  description: '未成定局的事，就不要搞得人尽皆知了',
+  description: '行百里者半九十',
   base: '/', // 格式：'/<仓库名>/'， 默认'/'
   markdown: {
     lineNumbers: true, // 代码行号
