@@ -3,6 +3,7 @@
 
 
 const WebNav = require("./WebNav");
+const BackEnd = require("./backend");
 const ToolNav = require("./ToolNav");
 const MeshNav = require("./MeshNav");
 const OtherNav = require("./OtherNav");
@@ -10,6 +11,7 @@ const OtherNav = require("./OtherNav");
 module.exports = [
   { text: '首页', link: '/' },
   WebNav, // 前端导航
+  BackEnd,
   MeshNav, // 网络导航
   ToolNav,  // 工具导航
   OtherNav, // 其它
