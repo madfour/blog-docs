@@ -6,10 +6,10 @@ module.exports = {
     items: [
       { text: 'Java', link: '/java/' },
     ]
-  }, {
-    text: '数据库',
-    items: [
-      // { text: 'JavaScript', link: '/js/' }
-    ]
+    // }, {
+    //   text: '数据库',
+    //   items: [
+    //     // { text: 'JavaScript', link: '/js/' }
+    //   ]
   }]
 }
