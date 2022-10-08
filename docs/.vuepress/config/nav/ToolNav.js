@@ -5,9 +5,9 @@ module.exports = {
     {
       text: '命令',
       items: [
-        { text: 'Git', link: '/git/' },
-        { text: 'NPM', link: '/npm/' },
-        { text: 'Mac', link: '/macorder/' }
+        { text: 'Git', link: '/git/3b9e99/' },
+        { text: 'NPM', link: '/npm/9ff780/' },
+        { text: 'Mac', link: '/macorder/order/' }
       ]
     },
   ]
