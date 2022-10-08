@@ -4,7 +4,7 @@ module.exports = {
   items: [{
     text: '框架',
     items: [
-      { text: 'Vue', link: '/vue/' },
+      { text: 'Vue2', link: '/vue/' },
       { text: 'Vue3', link: '/vue3/' },
       { text: 'React', link: '/react/' },
     ]
